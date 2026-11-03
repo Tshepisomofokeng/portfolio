@@ -8,27 +8,67 @@
 
     <title>Tshepiso. | Software Developer &amp; Designer</title>
 
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <!-- Motion gate. Runs before first paint so there is no flash of content.
+         Skipped for visitors who prefer reduced motion. -->
+    <script>
+        (function (d) {
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                d.classList.add('anim');
+
+                /* Safety net: if action.js never loads, show everything */
+                setTimeout(function () {
+                    if (!window.__motionReady) d.classList.remove('anim');
+                }, 3500);
+            }
+        })(document.documentElement);
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://cdn.simpleicons.org">
 
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    >
+    <!-- The portrait is the biggest thing on screen: start fetching it first -->
+    <link rel="preload" as="image" href="assets/tshepiso-software-developer-designer.webp" fetchpriority="high">
+
+    <!-- Google Fonts as a <link> instead of @import inside style.css (an @import
+         makes the font download wait for style.css), and non-render-blocking. -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap"></noscript>
 
     <link rel="stylesheet" href="style.css">
+
+    <script src="action.js" defer></script>
 </head>
 
 <body>
+
+<!-- Icon sprite: Font Awesome Free (CC BY 4.0, https://fontawesome.com/license/free) -->
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-arrow-up-right-from-square" viewBox="0 0 512 512"><path d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.3 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32zM80 96c-44.2 0-80 35.8-80 80v256c0 44.2 35.8 80 80 80h256c44.2 0 80-35.8 80-80v-80c0-17.7-14.3-32-32-32s-32 14.3-32 32v80c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V176c0-8.8 7.2-16 16-16h80c17.7 0 32-14.3 32-32s-14.3-32-32-32z"/></symbol>
+    <symbol id="i-business-time" viewBox="0 0 640 512"><path d="M264 48h112c4.4 0 8 3.6 8 8v40H256V56c0-4.4 3.6-8 8-8m-56 8v40h-80c-35.3 0-64 28.7-64 64v96h305c33.8-29.9 78.3-48 127-48 28.6 0 55.6 6.2 80 17.4V160c0-35.3-28.7-64-64-64h-80V56c0-30.9-25.1-56-56-56H264c-30.9 0-56 25.1-56 56m80 296c-17.7 0-32-14.3-32-32v-16H64v112c0 35.3 28.7 64 64 64h193.4c-11.2-24.4-17.4-51.4-17.4-80 0-16.6 2.1-32.7 6-48zm352 48a144 144 0 1 0-288 0 144 144 0 1 0 288 0m-144-80c8.8 0 16 7.2 16 16v48h32c8.8 0 16 7.2 16 16s-7.2 16-16 16h-48c-8.8 0-16-7.2-16-16v-64c0-8.8 7.2-16 16-16"/></symbol>
+    <symbol id="i-code" viewBox="0 0 576 512"><path d="M360.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6m64.6 136.1c-12.5 12.5-12.5 32.8 0 45.3l73.4 73.4-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3l-96-96c-12.5-12.5-32.8-12.5-45.3 0zm-274.7 0c-12.5-12.5-32.8-12.5-45.3 0l-96 96c-12.5 12.5-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l73.3-73.4c12.5-12.5 12.5-32.8 0-45.3z"/></symbol>
+    <symbol id="i-computer" viewBox="0 0 576 512"><path d="M348.8 32C340.7 46.1 336 62.5 336 80v16H64v224h272v64H64c-35.3 0-64-28.7-64-64V96c0-35.3 28.7-64 64-64zM336 432c0 17.5 4.7 33.9 12.8 48H120c-13.3 0-24-10.7-24-24s10.7-24 24-24zm96-400h96c26.5 0 48 21.5 48 48v352c0 26.5-21.5 48-48 48h-96c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48m24 64c-13.3 0-24 10.7-24 24s10.7 24 24 24h48c13.3 0 24-10.7 24-24s-10.7-24-24-24zm0 96c-13.3 0-24 10.7-24 24s10.7 24 24 24h48c13.3 0 24-10.7 24-24s-10.7-24-24-24zm56 144a32 32 0 1 0-64 0 32 32 0 1 0 64 0"/></symbol>
+    <symbol id="i-envelope" viewBox="0 0 512 512"><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4l208 156a48 48 0 0 0 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48zM0 196v188c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64V196L313.6 344.8c-34.1 25.6-81.1 25.6-115.2 0z"/></symbol>
+    <symbol id="i-file" viewBox="0 0 384 512"><path d="M64 0C28.7 0 0 28.7 0 64v384c0 35.3 28.7 64 64 64h256c35.3 0 64-28.7 64-64V170.5c0-17-6.7-33.3-18.7-45.3L258.7 18.7C246.7 6.7 230.5 0 213.5 0zm261.5 176H232c-13.3 0-24-10.7-24-24V58.5z"/></symbol>
+    <symbol id="i-github" viewBox="0 0 512 512"><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 512 512"><path d="M351.9 280H161c2.9 64.5 17.2 123.9 37.5 167.4 11.4 24.5 23.7 41.8 35.1 52.4 11.2 10.5 18.9 12.2 22.9 12.2s11.7-1.7 22.9-12.2c11.4-10.6 23.7-28 35.1-52.4 20.3-43.5 34.6-102.9 37.5-167.4zm-191-48h190.9c-2.8-64.5-17.1-123.9-37.4-167.4-11.4-24.4-23.7-41.8-35.1-52.4C268.1 1.7 260.4 0 256.4 0s-11.7 1.7-22.9 12.2c-11.4 10.6-23.7 28-35.1 52.4-20.3 43.5-34.6 102.9-37.5 167.4m-48 0c3.5-85.6 25.6-165.1 57.9-217.3C78.7 47.3 10.9 131.2 1.5 232zM1.5 280c9.4 100.8 77.2 184.7 169.3 217.3-32.3-52.2-54.4-131.7-57.9-217.3zm398.4 0c-3.5 85.6-25.6 165.1-57.9 217.3 92.1-32.7 159.9-116.5 169.3-217.3zm111.4-48C501.9 131.2 434.1 47.3 342 14.7c32.3 52.2 54.4 131.7 57.9 217.3z"/></symbol>
+    <symbol id="i-linkedin" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></symbol>
+    <symbol id="i-linkedin-in" viewBox="0 0 448 512"><path d="M100.3 448H7.4V148.9h92.9zM53.8 108.1C24.1 108.1 0 83.5 0 53.8c0-14.3 5.7-27.9 15.8-38S39.6 0 53.8 0s27.9 5.7 38 15.8 15.8 23.8 15.8 38c0 29.7-24.1 54.3-53.8 54.3M447.9 448h-92.7V302.4c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.7V448h-92.8V148.9h89.1v40.8h1.3c12.4-23.5 42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3V448z"/></symbol>
+    <symbol id="i-location-dot" viewBox="0 0 384 512"><path d="M0 188.6C0 84.4 86 0 192 0s192 84.4 192 188.6c0 119.3-120.2 262.3-170.4 316.8-11.8 12.8-31.5 12.8-43.3 0C120.1 450.9-.1 307.9-.1 188.6zM192 256a64 64 0 1 0 0-128 64 64 0 1 0 0 128"/></symbol>
+    <symbol id="i-pen-nib" viewBox="0 0 512 512"><path d="m368.5 18.3-50.1 50.1 125.3 125.3 50.1-50.1c21.9-21.9 21.9-57.3 0-79.2l-46.1-46.1c-21.9-21.9-57.3-21.9-79.2 0m-89.2 78.9-.5.1-144.1 43.2c-19.9 6-35.7 21.2-42.3 41L3.8 445.8c-2.9 8.7-1.9 18.2 2.5 26l155.4-155.4c-1.1-4-1.6-8.1-1.6-12.4 0-26.5 21.5-48 48-48s48 21.5 48 48-21.5 48-48 48c-4.3 0-8.5-.6-12.4-1.6L40.3 505.7c7.8 4.4 17.2 5.4 26 2.5l264.3-88.6c19.7-6.6 35-22.4 41-42.3l43.2-144.1.1-.5L279.4 97.2z"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 512 512"><path d="M160.2 25c-7.9-18.9-28.5-28.9-48.1-23.6l-5.5 1.5C42 20.5-13.2 83.1 2.9 159.3 40 334.3 177.7 472 352.7 509.1 429 525.3 491.5 470 509.1 405.4l1.5-5.5c5.4-19.7-4.7-40.3-23.5-48.1l-97.3-40.5c-16.5-6.9-35.6-2.1-47 11.8l-38.6 47.2c-70.3-34.9-126.9-93.3-159.4-165l44.2-36c13.9-11.3 18.6-30.4 11.8-47z"/></symbol>
+    <symbol id="i-screwdriver-wrench" viewBox="0 0 576 512"><path d="M70.8-6.7c5.4-5.4 13.8-6.2 20.2-2l118.9 79.2c8.9 5.9 14.2 15.9 14.2 26.6v49.6l90.8 90.8c33.3-15 73.9-8.9 101.2 18.5l126.1 126.1c18.7 18.7 18.7 49.1 0 67.9l-60.1 60.1c-18.7 18.7-49.1 18.7-67.9 0L288.1 384c-27.4-27.4-33.5-67.9-18.5-101.2L178.8 192h-49.6c-10.7 0-20.7-5.3-26.6-14.2L23.4 58.9c-4.2-6.3-3.4-14.8 2-20.2zm145 303.5c-6.3 36.9 2.3 75.9 26.2 107.2l-94.9 95c-28.1 28.1-73.7 28.1-101.8 0s-28.1-73.7 0-101.8l135.4-135.5 35.2 35.1zM384.1 0c20.1 0 39.4 3.7 57.1 10.5 10 3.8 11.8 16.5 4.3 24.1l-56.7 56.7c-3 3-4.7 7.1-4.7 11.3V144c0 8.8 7.2 16 16 16h41.4c4.2 0 8.3-1.7 11.3-4.7l56.7-56.7c7.6-7.5 20.3-5.7 24.1 4.3 6.8 17.7 10.5 37 10.5 57.1 0 43.2-17.2 82.3-45 111.1L450 222c-33.1-33-78.5-45.7-121.1-38.4l-56.8-56.8V97.1l-.2-5c-.8-12.4-4.4-24.3-10.5-34.9C290.8 22.2 334.8 0 384.1-.1z"/></symbol>
+    <symbol id="i-whatsapp" viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157m-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1s56.2 81.2 56.1 130.5c0 101.8-84.9 184.6-186.6 184.6m101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8s-14.3 18-17.6 21.8c-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7s-12.5-30.1-17.1-41.2c-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2s-9.7 1.4-14.8 6.9c-5.1 5.6-19.4 19-19.4 46.3s19.9 53.7 22.6 57.4c2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4s4.6-24.1 3.2-26.4c-1.3-2.5-5-3.9-10.5-6.6"/></symbol>
+</svg>
+
 
 <header class="site-header">
     <div class="container nav-wrap">
 
         <a href="#home" class="brand">
             <img
-                class="brand-logo"
+                class="brand-logo" decoding="async"
                 src="assets/tshepiso-software-developer-designer-logo.webp"
                 alt="Tshepiso — Software Developer &amp; Designer"
             >
@@ -69,22 +109,22 @@
 
             <div class="hero-copy">
 
-                <p class="eyebrow">
+                <p class="eyebrow" data-hero style="--d:0ms">
                     Hey, I’m Tshepiso.
                 </p>
 
-                <h1>
+                <h1 data-hero style="--d:90ms">
                     <span>A Software Developer</span><br>
                     &amp; <strong>DESIGNER</strong>
                 </h1>
 
-                <div class="hero-dots" aria-hidden="true">
+                <div class="hero-dots" aria-hidden="true" data-hero style="--d:200ms">
                     <i></i>
                     <i></i>
                     <b></b>
                 </div>
 
-                <p class="hero-text">
+                <p class="hero-text" data-hero style="--d:280ms">
                     I build
                     <mark>software and digital experiences</mark>
                     using modern technologies, APIs, and plugins,
@@ -92,15 +132,15 @@
                     <mark>thoughtful design, and user-friendly solutions.</mark>
                 </p>
 
-                <div class="hero-actions">
+                <div class="hero-actions" data-hero style="--d:380ms">
 
                     <!-- TODO: point these to your real CV file and GitHub profile -->
                     <a href="#" class="btn btn-primary">
-                        <i class="fa-solid fa-file" aria-hidden="true"></i> Download CV
+                        <svg class="icon" viewBox="0 0 384 512" aria-hidden="true" focusable="false"><use href="#i-file"/></svg> Download CV
                     </a>
 
                     <a href="https://github.com/Tshepisomofokeng" target="_blank" rel="noopener noreferrer" class="btn btn-light">
-                        <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub
+                        <svg class="icon" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><use href="#i-github"/></svg> GitHub
                     </a>
 
                 </div>
@@ -110,16 +150,16 @@
 
             <div class="hero-visual">
 
-                <div class="blob blob-a"></div>
-                <div class="blob blob-b"></div>
+                <div class="blob blob-a" data-hero="zoom" style="--d:150ms" data-parallax="0.10"></div>
+                <div class="blob blob-b" data-hero="zoom" style="--d:260ms" data-parallax="-0.06"></div>
 
-                <div class="dot-grid"></div>
+                <div class="dot-grid" data-hero="fade" style="--d:600ms" data-parallax="0.18"></div>
 
-                <div class="floating-dot"></div>
+                <div class="floating-dot" data-hero="zoom" style="--d:700ms" data-parallax="-0.12"></div>
 
                 <!-- Replace this with your actual image -->
                 <img
-    class="portrait-placeholder"
+    class="portrait-placeholder" data-hero="portrait" style="--d:200ms" data-parallax="0.04" data-zoom="0.05" fetchpriority="high" decoding="async"
     src="assets/tshepiso-software-developer-designer.webp"
     alt="Tshepiso Mofokeng — Software Developer & Designer"
 >
@@ -133,11 +173,11 @@
 
         <div class="container">
 
-            <div class="stats-card">
+            <div class="stats-card" data-hero="zoom" style="--d:520ms">
 
                 <div class="stat">
 
-                    <i class="stat-icon fa-solid fa-computer" aria-hidden="true"></i>
+                    <svg class="icon stat-icon" viewBox="0 0 576 512" aria-hidden="true" focusable="false"><use href="#i-computer"/></svg>
 
                     <div>
                         <small>Projects Completed</small>
@@ -149,7 +189,7 @@
 
                 <div class="stat">
 
-                    <i class="stat-icon fa-solid fa-globe" aria-hidden="true"></i>
+                    <svg class="icon stat-icon" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><use href="#i-globe"/></svg>
 
                     <div>
                         <small>Websites Built</small>
@@ -161,7 +201,7 @@
 
                 <div class="stat">
 
-                    <i class="stat-icon fa-solid fa-business-time" aria-hidden="true"></i>
+                    <svg class="icon stat-icon" viewBox="0 0 640 512" aria-hidden="true" focusable="false"><use href="#i-business-time"/></svg>
 
                     <div>
                         <small>Work Experience</small>
@@ -182,15 +222,17 @@
 
     <section id="about" class="section about">
 
+        <span class="bg-orb orb-about" data-parallax="0.16" data-zoom="0.08" aria-hidden="true"></span>
+
         <div class="container about-grid">
 
             <div>
 
-                <p class="section-kicker">
+                <p class="section-kicker" data-reveal>
                     About Tshepiso Mofokeng
                 </p>
 
-                <h2>
+                <h2 data-reveal data-delay="110">
                     Bringing Versions<br>
                     To Life with creativity<br>
                     and Coding.
@@ -201,14 +243,14 @@
 
             <div class="about-copy">
 
-                <h3>
+                <h3 data-reveal="right">
                     I’m a Software developer with an IT background,
                     building reliable and user-friendly softwares
                     using custom development and WordPress.
                 </h3>
 
 
-                <div class="about-meta">
+                <div class="about-meta" data-reveal>
 
                     <p>
                         Software Development &amp; Design<br>
@@ -217,7 +259,7 @@
                         </span>
                     </p>
 
-                    <a class="round-arrow-btn" href="#contact">
+                    <a class="round-arrow-btn" data-reveal="zoom" href="#contact">
                         Contact Me
                         <b aria-hidden="true">→</b>
                     </a>
@@ -233,7 +275,7 @@
 
         <div id="skills" class="tech-section">
 
-            <div class="tech-marquee">
+            <div class="tech-marquee" data-reveal="zoom">
 
                 <!-- SINGLE ROW — Design, Web, Back-end, Tools -->
                 <div class="marquee-row">
@@ -271,35 +313,35 @@
                             </span>
 
                             <span class="tech-item" title="HTML5">
-                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" width="80" height="80" loading="lazy" decoding="async">
                             </span>
 
                             <span class="tech-item" title="CSS3">
-                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" width="80" height="80" loading="lazy" decoding="async">
                             </span>
 
                             <span class="tech-item" title="JavaScript">
-                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" width="80" height="80" loading="lazy" decoding="async">
                             </span>
 
                             <span class="tech-item" title="PHP">
-                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP" width="80" height="80" loading="lazy" decoding="async">
                             </span>
 
                             <span class="tech-item" title="C# / .NET">
-                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C# / .NET">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C# / .NET" width="80" height="80" loading="lazy" decoding="async">
                             </span>
 
                             <span class="tech-item" title="Git">
-                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" width="80" height="80" loading="lazy" decoding="async">
                             </span>
 
                             <span class="tech-item" title="WordPress">
-                                <img src="https://cdn.simpleicons.org/wordpress" alt="WordPress">
+                                <img src="https://cdn.simpleicons.org/wordpress" alt="WordPress" width="80" height="80" loading="lazy" decoding="async">
                             </span>
 
                             <span class="tech-item" title="MySQL / SQL">
-                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL / SQL">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL / SQL" width="80" height="80" loading="lazy" decoding="async">
                             </span>
 
                             <span class="tech-item" title="REST APIs">
@@ -327,24 +369,26 @@
 
     <section id="projects" class="section projects">
 
+        <span class="bg-orb orb-projects" data-parallax="-0.12" data-zoom="0.06" aria-hidden="true"></span>
+
         <div class="container">
 
             <div class="section-heading-row">
 
                 <div>
 
-                    <p class="section-kicker">
+                    <p class="section-kicker" data-reveal>
                         My Recent Projects
                     </p>
 
-                    <h2>
+                    <h2 data-reveal data-delay="110">
                         Some Things I’ve Built
                     </h2>
 
                 </div>
 
 
-                <a href="#projects" class="projects-link">
+                <a href="#projects" class="projects-link" data-reveal data-delay="220">
                     Get to Know My Projects
                     <span aria-hidden="true">→</span>
                 </a>
@@ -352,7 +396,7 @@
             </div>
 
 
-            <div class="projects-carousel">
+            <div class="projects-carousel" data-reveal>
 
                 <div class="project-track" id="projectTrack">
 
@@ -373,7 +417,7 @@
                             <a href="https://github.com/Tshepisomofokeng/Dynamic-Workflow-Process-Management-Platform"
                                target="_blank" rel="noopener noreferrer"
                                aria-label="Open Dynamic Workflow platform project (opens in a new tab)">
-                                <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                                <svg class="icon" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right-from-square"/></svg>
                             </a>
 
                             <div class="tags">
@@ -405,7 +449,7 @@
                             <a href="https://app.caeluvent.co.za"
                                target="_blank" rel="noopener noreferrer"
                                aria-label="Open Caeluvent project (opens in a new tab)">
-                                <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                                <svg class="icon" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right-from-square"/></svg>
                             </a>
 
                             <div class="tags">
@@ -437,7 +481,7 @@
                             <a href="https://vut.ac.za/"
                                target="_blank" rel="noopener noreferrer"
                                aria-label="Open VUT Student Support Chatbot project (opens in a new tab)">
-                                <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                                <svg class="icon" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right-from-square"/></svg>
                             </a>
 
                             <div class="tags">
@@ -469,7 +513,7 @@
                             <a href="https://vut.ac.za/faculty-of-engineering-and-technology/"
                                target="_blank" rel="noopener noreferrer"
                                aria-label="Open VUT Faculty Website project (opens in a new tab)">
-                                <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                                <svg class="icon" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right-from-square"/></svg>
                             </a>
 
                             <div class="tags">
@@ -501,7 +545,7 @@
                             <a href="https://tapnextfinance.com"
                                target="_blank" rel="noopener noreferrer"
                                aria-label="Open Tapnext Finance project (opens in a new tab)">
-                                <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                                <svg class="icon" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right-from-square"/></svg>
                             </a>
 
                             <div class="tags">
@@ -533,7 +577,7 @@
                             <a href="https://valtero.co.za/"
                                target="_blank" rel="noopener noreferrer"
                                aria-label="Open Valtero vehicle booking website project (opens in a new tab)">
-                                <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                                <svg class="icon" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right-from-square"/></svg>
                             </a>
 
                             <div class="tags">
@@ -565,7 +609,7 @@
                             <a href="https://butimalingafoundation.co.za/"
                                target="_blank" rel="noopener noreferrer"
                                aria-label="Open Buti Malinga Foundation project (opens in a new tab)">
-                                <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                                <svg class="icon" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right-from-square"/></svg>
                             </a>
 
                             <div class="tags">
@@ -597,7 +641,7 @@
                             <a href="https://sleakandco.co.za"
                                target="_blank" rel="noopener noreferrer"
                                aria-label="Open Sleak &amp; Co. project (opens in a new tab)">
-                                <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                                <svg class="icon" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right-from-square"/></svg>
                             </a>
 
                             <div class="tags">
@@ -629,7 +673,7 @@
                             <a href="https://apcparalegal.co.za"
                                target="_blank" rel="noopener noreferrer"
                                aria-label="Open APC Paralegal project (opens in a new tab)">
-                                <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                                <svg class="icon" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right-from-square"/></svg>
                             </a>
 
                             <div class="tags">
@@ -647,7 +691,7 @@
             </div>
 
 
-            <div class="carousel-dots"
+            <div class="carousel-dots" data-reveal="fade" data-delay="300"
                  id="projectDots"
                  role="group"
                  aria-label="Project carousel navigation">
@@ -663,21 +707,23 @@
 
     <section class="section work">
 
+        <span class="bg-orb orb-work" data-parallax="0.14" data-zoom="0.08" aria-hidden="true"></span>
+
         <div class="container work-grid">
 
             <div class="work-copy">
 
-                <p class="section-kicker">
+                <p class="section-kicker" data-reveal>
                     What I Work On
                 </p>
 
-                <h2>
+                <h2 data-reveal data-delay="110">
                     Building Software<br>
                     That Are Functional,<br>
                     Fast, and User-Focused.
                 </h2>
 
-                <p>
+                <p data-reveal data-delay="200">
                     I work across the software development lifecycle
                     from designing and developing applications to
                     integrating APIs, databases, and third-party services.
@@ -691,10 +737,10 @@
 
             <div class="service-grid">
 
-                <article class="service-card featured">
+                <article class="service-card featured" data-reveal="zoom">
 
                     <span class="service-icon">
-                        <i class="fa-solid fa-code" aria-hidden="true"></i>
+                        <svg class="icon" viewBox="0 0 576 512" aria-hidden="true" focusable="false"><use href="#i-code"/></svg>
                     </span>
 
                     <h3>
@@ -710,10 +756,10 @@
                 </article>
 
 
-                <article class="service-card">
+                <article class="service-card" data-reveal="zoom">
 
                     <span class="service-icon">
-                        <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>
+                        <svg class="icon" viewBox="0 0 576 512" aria-hidden="true" focusable="false"><use href="#i-screwdriver-wrench"/></svg>
                     </span>
 
                     <h3>
@@ -729,10 +775,10 @@
                 </article>
 
 
-                <article class="service-card">
+                <article class="service-card" data-reveal="zoom">
 
                     <span class="service-icon">
-                        <i class="fa-solid fa-globe" aria-hidden="true"></i>
+                        <svg class="icon" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><use href="#i-globe"/></svg>
                     </span>
 
                     <h3>
@@ -748,10 +794,10 @@
                 </article>
 
 
-                <article class="service-card">
+                <article class="service-card" data-reveal="zoom">
 
                     <span class="service-icon">
-                        <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
+                        <svg class="icon" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><use href="#i-pen-nib"/></svg>
                     </span>
 
                     <h3>
@@ -778,15 +824,17 @@
 
     <section id="contact" class="section contact">
 
+        <span class="bg-orb orb-contact" data-parallax="-0.14" data-zoom="0.06" aria-hidden="true"></span>
+
         <div class="container contact-grid">
 
             <div class="contact-info">
 
-                <p class="section-kicker">
+                <p class="section-kicker" data-reveal>
                     Get In Touch
                 </p>
 
-                <h2>
+                <h2 data-reveal data-delay="110">
                     Let’s Build Something<br>
                     Amazing Together!
                 </h2>
@@ -794,34 +842,34 @@
 
                 <ul>
 
-                    <li>
+                    <li data-reveal="left">
                         <a href="mailto:tshepiso.fokeng@gmail.com">
-                            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                            <svg class="icon" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><use href="#i-envelope"/></svg>
                             <span>
                                 tshepiso.fokeng@gmail.com
                             </span>
                         </a>
                     </li>
 
-                    <li>
+                    <li data-reveal="left">
                         <a href="tel:+27813198467">
-                            <i class="fa-solid fa-phone" aria-hidden="true"></i>
+                            <svg class="icon" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg>
                             <span>
                                 +27 81 319 8467
                             </span>
                         </a>
                     </li>
 
-                    <li>
-                        <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                    <li data-reveal="left">
+                        <svg class="icon" viewBox="0 0 384 512" aria-hidden="true" focusable="false"><use href="#i-location-dot"/></svg>
                         <span>
                             Willing to relocate
                         </span>
                     </li>
 
-                    <li>
+                    <li data-reveal="left">
                         <a href="https://www.linkedin.com/in/tshepiso-mofokeng-520a232a0/" target="_blank" rel="noopener noreferrer">
-                            <i class="fa-brands fa-linkedin" style="color: #229799;" aria-hidden="true"></i>
+                            <svg class="icon" viewBox="0 0 448 512" style="color: #229799;" aria-hidden="true" focusable="false"><use href="#i-linkedin"/></svg>
                             <span>
                                 linkedin.com/in/tshepiso-mofokeng-520a232a0
                             </span>
@@ -833,7 +881,7 @@
             </div>
 
 
-            <form class="contact-form"
+            <form class="contact-form" data-reveal="right"
                   action="#"
                   method="post"
                   novalidate>
@@ -919,10 +967,10 @@
 
     <div class="container footer-grid">
 
-        <div class="footer-brand">
+        <div class="footer-brand" data-reveal>
 
             <img
-                class="footer-logo"
+                class="footer-logo" loading="lazy" decoding="async"
                 src="assets/tshepiso-software-developer-designer-footer.webp"
                 alt="Tshepiso — Software Developer &amp; Designer"
             >
@@ -935,23 +983,23 @@
 
             <div class="socials">
                 <a href="https://github.com/Tshepisomofokeng" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                    <i class="fa-brands fa-github" aria-hidden="true"></i>
+                    <svg class="icon" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><use href="#i-github"/></svg>
                 </a>
                 <a href="https://www.linkedin.com/in/tshepiso-mofokeng-520a232a0/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                    <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
+                    <svg class="icon" viewBox="0 0 448 512" aria-hidden="true" focusable="false"><use href="#i-linkedin-in"/></svg>
                 </a>
                 <a href="mailto:tshepiso.fokeng@gmail.com" aria-label="Email">
-                    <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                    <svg class="icon" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><use href="#i-envelope"/></svg>
                 </a>
                 <a href="https://wa.me/27813198467" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-                    <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                    <svg class="icon" viewBox="0 0 448 512" aria-hidden="true" focusable="false"><use href="#i-whatsapp"/></svg>
                 </a>
             </div>
 
         </div>
 
 
-        <div>
+        <div data-reveal>
 
             <h4>Quick Links</h4>
 
@@ -964,7 +1012,7 @@
         </div>
 
 
-        <div>
+        <div data-reveal>
 
             <h4>What I Do</h4>
 
@@ -991,7 +1039,7 @@
         </div>
 
 
-        <div>
+        <div data-reveal>
 
             <h4>Let’s Connect</h4>
 
@@ -1031,7 +1079,6 @@
 
 
 
-<script src="action.js"></script>
 
 </body>
 </html>

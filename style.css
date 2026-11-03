@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap');
-
 /* =========================================================
    VARIABLES
 ========================================================= */
@@ -488,7 +486,7 @@ section[id],
     box-shadow: 10px 10px 5px rgba(0, 0, 0, .13);
 }
 
-.btn i {
+.btn .icon {
     font-size: 1.35em;
     line-height: 1;
 }
@@ -869,8 +867,6 @@ h2 {
     display: flex;
 
     width: max-content;
-
-    will-change: transform;
 }
 
 
@@ -887,6 +883,7 @@ h2 {
 }
 
 
+.marquee-track.is-paused,
 .marquee-row:hover .marquee-track {
 
     animation-play-state: paused;
@@ -1609,7 +1606,7 @@ h2 {
 }
 
 
-.contact-info li i {
+.contact-info li .icon {
 
     flex: 0 0 24px;
 
@@ -1871,6 +1868,203 @@ h2 {
     display: flex;
 
     justify-content: space-between;
+}
+
+
+
+/* =========================================================
+   ICONS  (inline SVG sprite — replaces the Font Awesome library)
+========================================================= */
+
+.icon {
+
+    display: inline-block;
+
+    /* 1em tall, width follows the icon's own proportions */
+    height: 1em;
+
+    width: auto;
+
+    fill: currentColor;
+
+    flex-shrink: 0;
+
+    vertical-align: -0.125em;
+
+    overflow: visible;
+}
+
+
+
+/* =========================================================
+   MOTION
+   Three layers that combine:
+
+   1. REVEAL (keyframes)  data-hero / data-reveal
+      Elements fade + slide/zoom in AND back out, in both scroll
+      directions (see initReveals in action.js). Hero items first
+      play on load as pure CSS, so they never wait for JavaScript,
+      then join the same in/out system.
+
+   2. ZOOM / SCALE        reveal-zoom keyframes + data-zoom
+      Cards and shapes grow into place, and some elements
+      breathe in size as they travel through the viewport.
+
+   3. PARALLAX            data-parallax
+      Decorative shapes drift at a different speed from the page.
+
+   Everything uses opacity and the individual `translate` / `scale`
+   properties, which run on the GPU and never fight with the
+   `transform` already used for hover effects and rotations.
+
+   The whole system only switches on when <html> has the `anim`
+   class, which is NOT added for visitors who prefer reduced motion.
+========================================================= */
+
+:root {
+
+    --ease: cubic-bezier(.22, .75, .25, 1);
+
+    --rv-y: 44px;     /* travel distance, vertical   */
+
+    --rv-x: 60px;     /* travel distance, horizontal */
+
+    --rv-dur: .9s;
+}
+
+
+/* Only a `from` frame: the "to" state is whatever the element
+   normally looks like, so there is never a snap at the end. */
+
+@keyframes reveal-up {
+    from { opacity: 0; translate: 0 var(--rv-y); }
+}
+
+@keyframes reveal-zoom {
+    from { opacity: 0; scale: .86; translate: 0 calc(var(--rv-y) * .4); }
+}
+
+@keyframes reveal-fade {
+    from { opacity: 0; }
+}
+
+@keyframes reveal-portrait {
+    from { opacity: 0; scale: .88; translate: 0 40px; }
+}
+
+@keyframes reveal-wipe {
+    from { clip-path: inset(0 0 100% 0 round 5px); }
+    to   { clip-path: inset(0 0 0 0 round 5px); }
+}
+
+
+/* ---------- Hero: plays on load, no JavaScript needed ---------- */
+
+.anim [data-hero] {
+
+    animation: reveal-up var(--rv-dur) var(--ease) var(--d, 0ms) backwards;
+}
+
+.anim [data-hero="zoom"]     { animation-name: reveal-zoom; }
+.anim [data-hero="fade"]     { animation-name: reveal-fade; }
+.anim [data-hero="portrait"] { animation-name: reveal-portrait; animation-duration: 1.1s; }
+
+
+/* ---------- Everywhere else: animated by JS (Web Animations API) ----------
+   .is-visible is only the resting state: hidden by default, shown while the
+   element is on screen. The journey in and out is animated from action.js. */
+
+.anim [data-reveal] {
+
+    opacity: 0;
+}
+
+.anim [data-reveal].is-visible {
+
+    opacity: 1;
+}
+
+
+/* ---------- Project cards: first three zoom in one after another,
+              and each preview image wipes open ---------- */
+
+.project-card:nth-child(2) { --ci: 1; }
+.project-card:nth-child(3) { --ci: 2; }
+
+.anim .projects-carousel.is-visible .project-card {
+
+    animation:
+        reveal-zoom .85s var(--ease)
+        calc(var(--ci, 0) * 130ms + 120ms)
+        backwards;
+}
+
+.anim .projects-carousel.is-visible .project-image {
+
+    animation:
+        reveal-wipe 1s var(--ease)
+        calc(var(--ci, 0) * 130ms + 350ms)
+        backwards;
+}
+
+
+/* ---------- Parallax orbs: soft shapes behind four sections ---------- */
+
+.about,
+.projects,
+.work,
+.contact {
+
+    /* own stacking context so the orbs can sit behind the content
+       without disappearing behind the section's background */
+    position: relative;
+
+    isolation: isolate;
+
+    /* rotated orbs and slide-in reveals must never widen the page */
+    overflow-x: clip;
+}
+
+.bg-orb {
+
+    position: absolute;
+
+    z-index: -1;
+
+    width: 280px;
+
+    height: 240px;
+
+    pointer-events: none;
+
+    border: 1px solid rgba(30, 157, 160, .22);
+
+    border-radius: 45% 55% 60% 40%;
+
+    background: rgba(66, 193, 198, .07);
+
+    transform: rotate(-18deg);
+}
+
+.orb-about    { top: 30px;    right: 4%; }
+.orb-projects { top: 18%;     left: 3%;  width: 220px; height: 200px; }
+.orb-work     { bottom: 8%;   right: 5%; width: 300px; height: 250px; }
+.orb-contact  { top: 10%;     left: 4%;  width: 240px; height: 210px; }
+
+
+/* ---------- Safety net ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+
+    [data-hero],
+    [data-reveal],
+    .project-card,
+    .project-image {
+
+        opacity: 1 !important;
+
+        animation: none !important;
+    }
 }
 
 
@@ -2164,7 +2358,26 @@ h2 {
     :root {
 
         --header-h: 68px;
+
+        /* gentler travel on small screens */
+        --rv-y: 28px;
+
+        --rv-x: 32px;
+
+        --rv-dur: .75s;
     }
+
+
+    .bg-orb {
+
+        width: 170px;
+
+        height: 150px;
+    }
+
+    .orb-projects { width: 150px; height: 135px; }
+    .orb-work     { width: 190px; height: 165px; }
+    .orb-contact  { width: 160px; height: 140px; }
 
 
     .section {
