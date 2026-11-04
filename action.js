@@ -1443,6 +1443,117 @@
 
 
     /* ---------------------------------------------------
+       Interaction extras
+       - Click ripple on buttons (the CSS draws it)
+       - Project cards: a spotlight follows the mouse, and the whole
+         card is clickable (it forwards the click to its link)
+    --------------------------------------------------- */
+
+    function initInteractions() {
+
+        /* -------- Ripple -------- */
+
+        if (!reduceMotion.matches) {
+
+            document.addEventListener('pointerdown', e => {
+
+                if (e.button > 0) return;
+
+                const btn = e.target.closest(
+                    '.btn, .nav-cta, .footer-cta, .send-btn, .round-arrow-btn'
+                );
+
+                if (!btn) return;
+
+                const rect = btn.getBoundingClientRect();
+
+                const size = Math.max(rect.width, rect.height) * 2;
+
+                const ripple = document.createElement('span');
+
+                ripple.className = 'ripple';
+
+                ripple.setAttribute('aria-hidden', 'true');
+
+                ripple.style.width = ripple.style.height = size + 'px';
+
+                ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+
+                ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+
+                btn.appendChild(ripple);
+
+                ripple.addEventListener('animationend', () => ripple.remove(), { once: true });
+
+            }, { passive: true });
+
+        }
+
+
+        /* -------- Project cards -------- */
+
+        const track = document.getElementById('projectTrack');
+
+        if (!track) return;
+
+
+        /* spotlight (mouse only, throttled to one update per frame) */
+
+        let latest = null;
+
+        let queued = false;
+
+        track.addEventListener('pointermove', e => {
+
+            if (e.pointerType !== 'mouse') return;
+
+            const card = e.target.closest('.project-card');
+
+            if (!card) return;
+
+            latest = { card, x: e.clientX, y: e.clientY };
+
+            if (queued) return;
+
+            queued = true;
+
+            requestAnimationFrame(() => {
+
+                queued = false;
+
+                if (!latest) return;
+
+                const r = latest.card.getBoundingClientRect();
+
+                latest.card.style.setProperty('--mx', (latest.x - r.left) + 'px');
+
+                latest.card.style.setProperty('--my', (latest.y - r.top) + 'px');
+
+            });
+
+        }, { passive: true });
+
+
+        /* clicking anywhere on a card opens its project */
+
+        track.addEventListener('click', e => {
+
+            if (e.target.closest('a')) return;
+
+            if (String(window.getSelection()).length) return;   /* they were selecting text */
+
+            const card = e.target.closest('.project-card');
+
+            const link = card && card.querySelector('.project-info > a');
+
+            if (link && link.getAttribute('href') !== '#') link.click();
+
+        });
+
+    }
+
+
+    /* ---------------------------------------------------
        Boot
     --------------------------------------------------- */
 
@@ -1461,6 +1572,8 @@
         initParallax();
 
         initCountUp();
+
+        initInteractions();
 
     }
 

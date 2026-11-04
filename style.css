@@ -943,7 +943,7 @@ h2 {
 
     transform: translateY(-6px) scale(1.15);
 
-    filter: saturate(1.3);
+    filter: saturate(1.3) drop-shadow(0 8px 8px rgba(0, 0, 0, .18));
 }
 
 
@@ -1054,9 +1054,11 @@ h2 {
 
     overflow: hidden;
 
-    padding: 6px 4px 16px;
+    /* extra padding (cancelled by the negative margin) gives hovered cards
+       room to lift and glow without being clipped */
+    padding: 22px 14px 40px;
 
-    margin: -6px -4px -4px;
+    margin: -22px -14px -28px;
 
     cursor: grab;
 
@@ -2064,6 +2066,851 @@ h2 {
         opacity: 1 !important;
 
         animation: none !important;
+    }
+}
+
+
+
+/* =========================================================
+   INTERACTIONS
+   Hover, press and focus micro-animations for buttons, links,
+   project cards and form fields.
+
+   How it is layered:
+   - Colour / shadow changes on hover   → any device that can hover
+   - Movement (lift, slide, sweep)      → only when the visitor has NOT
+                                          asked for reduced motion
+   - Press feedback (:active)           → every pointer, including touch
+   - Keyboard focus ring                → everyone
+   Hover rules sit inside (hover: hover) so touch screens never get a
+   "stuck" hover state after a tap.
+========================================================= */
+
+::selection {
+
+    background: rgba(30, 157, 160, .25);
+}
+
+a,
+button {
+
+    -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+
+    outline: 3px solid rgba(30, 157, 160, .5);
+
+    outline-offset: 3px;
+}
+
+.consent input {
+
+    accent-color: var(--teal);
+}
+
+
+/* ---------- Buttons: shared base ---------- */
+
+.btn,
+.nav-cta,
+.footer-cta,
+.send-btn,
+.round-arrow-btn {
+
+    position: relative;
+
+    overflow: hidden;
+
+    transition:
+        transform .3s var(--ease),
+        box-shadow .3s var(--ease),
+        background-color .3s ease,
+        color .3s ease,
+        filter .3s ease;
+}
+
+.btn,
+.round-arrow-btn,
+.send-btn {
+
+    cursor: pointer;
+}
+
+
+/* Light sweep that crosses the button on hover */
+
+.btn::after,
+.nav-cta::after,
+.footer-cta::after,
+.send-btn::after,
+.round-arrow-btn::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    bottom: 0;
+
+    left: 0;
+
+    width: 40%;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    background:
+        linear-gradient(
+            105deg,
+            transparent,
+            rgba(255, 255, 255, .5),
+            transparent
+        );
+
+    transform: translateX(-160%) skewX(-20deg);
+}
+
+.btn-light::after {
+
+    background:
+        linear-gradient(
+            105deg,
+            transparent,
+            rgba(30, 157, 160, .2),
+            transparent
+        );
+}
+
+
+/* Click ripple (spans are created by action.js on pointerdown) */
+
+.ripple {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    background: currentColor;
+
+    opacity: .28;
+
+    pointer-events: none;
+
+    transform: scale(0);
+
+    animation: ripple .65s ease-out forwards;
+}
+
+@keyframes ripple {
+
+    to {
+
+        transform: scale(1);
+
+        opacity: 0;
+    }
+}
+
+
+/* Small moving parts inside buttons */
+
+.btn .icon,
+.round-arrow-btn b,
+.nav-cta span,
+.send-arrow,
+.projects-link span {
+
+    transition: transform .4s var(--ease);
+}
+
+.nav-cta span,
+.send-arrow,
+.projects-link span {
+
+    display: inline-block;
+}
+
+.send-arrow {
+
+    margin-left: 10px;
+}
+
+
+/* ---------- "Get to Know My Projects": underline draws in ---------- */
+
+.projects-link {
+
+    padding-bottom: 4px;
+
+    background:
+        linear-gradient(currentColor, currentColor)
+        left bottom / 0% 2px
+        no-repeat;
+
+    transition:
+        background-size .45s var(--ease),
+        color .3s ease;
+}
+
+
+/* ---------- Nav links: underline grows from the left ---------- */
+
+.nav a {
+
+    position: relative;
+}
+
+.nav a:not(.nav-cta)::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    right: 0;
+
+    bottom: -6px;
+
+    height: 2px;
+
+    border-radius: 2px;
+
+    background: var(--teal);
+
+    transform: scaleX(0);
+
+    transform-origin: left;
+
+    transition: transform .35s var(--ease);
+}
+
+
+/* ---------- Footer links: a dash opens up in front of the text ---------- */
+
+.footer-grid > div:not(.footer-brand) > a::before {
+
+    content: "";
+
+    display: inline-block;
+
+    width: 0;
+
+    height: 2px;
+
+    margin-right: 0;
+
+    vertical-align: middle;
+
+    background: #48cfcb;
+
+    transition:
+        width .3s var(--ease),
+        margin-right .3s var(--ease);
+}
+
+.footer-grid > div:not(.footer-brand) > a {
+
+    transition: color .25s ease;
+}
+
+.footer-grid > div:not(.footer-brand) > a.footer-cta::before {
+
+    display: none;
+}
+
+
+/* ---------- Social icons / contact rows / logo ---------- */
+
+.socials a {
+
+    transition:
+        transform .35s var(--ease),
+        background-color .3s ease,
+        color .3s ease,
+        box-shadow .35s var(--ease);
+}
+
+.contact-info li > a .icon {
+
+    transition: transform .4s var(--ease);
+}
+
+.brand-logo {
+
+    transition: transform .35s var(--ease);
+}
+
+
+/* ---------- Form fields ---------- */
+
+.contact-form input:not([type="checkbox"]),
+.contact-form textarea {
+
+    transition:
+        border-color .25s ease,
+        box-shadow .25s ease,
+        background-color .25s ease,
+        transform .3s var(--ease);
+}
+
+.contact-form input:not([type="checkbox"]):hover,
+.contact-form textarea:hover {
+
+    border-color: #555;
+}
+
+
+/* ---------- Project cards ---------- */
+
+.project-card {
+
+    position: relative;
+
+    cursor: pointer;
+
+    transition:
+        transform .45s var(--ease),
+        box-shadow .45s var(--ease),
+        border-color .3s ease;
+}
+
+/* soft spotlight that follows the cursor (--mx / --my set by action.js) */
+.project-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 1;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    background:
+        radial-gradient(
+            280px circle at var(--mx, 50%) var(--my, 35%),
+            rgba(66, 193, 198, .18),
+            transparent 65%
+        );
+
+    transition: opacity .35s ease;
+}
+
+.project-image {
+
+    position: relative;
+}
+
+.project-image > span,
+.project-image > img {
+
+    transition: transform .7s var(--ease);
+}
+
+/* light sweep across the preview image */
+.project-image::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    bottom: 0;
+
+    left: 0;
+
+    width: 45%;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    background:
+        linear-gradient(
+            105deg,
+            transparent,
+            rgba(255, 255, 255, .4),
+            transparent
+        );
+
+    transform: translateX(-160%) skewX(-18deg);
+}
+
+/* "View project" chip that slides up from the bottom of the image */
+.project-image::after {
+
+    content: "View project  ↗";
+
+    content: "View project  ↗" / "";
+
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 14px;
+
+    padding: 7px 16px;
+
+    border-radius: 30px;
+
+    background: rgba(255, 255, 255, .96);
+
+    color: #1b7f81;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: .3px;
+
+    white-space: nowrap;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    box-shadow: 0 6px 16px rgba(0, 0, 0, .18);
+
+    transform: translate(-50%, 26px);
+
+    transition:
+        transform .5s var(--ease),
+        opacity .3s ease;
+}
+
+.project-info h3 {
+
+    transition:
+        color .3s ease,
+        transform .45s var(--ease);
+}
+
+.tags span {
+
+    transition:
+        transform .4s var(--ease),
+        background-color .3s ease,
+        color .3s ease;
+}
+
+.project-info > a {
+
+    transition: color .3s ease;
+}
+
+.project-info > a::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 5px;
+
+    border-radius: 50%;
+
+    background: rgba(30, 157, 160, .12);
+
+    transform: scale(0);
+
+    transition: transform .4s var(--ease);
+}
+
+.project-info > a .icon {
+
+    position: relative;
+
+    transition: transform .45s var(--ease);
+}
+
+
+@keyframes sweep {
+
+    from { transform: translateX(-160%) skewX(-20deg); }
+
+    to   { transform: translateX(380%) skewX(-20deg); }
+}
+
+@keyframes icon-drop {
+
+    0%   { transform: translateY(0); }
+
+    40%  { transform: translateY(5px); }
+
+    70%  { transform: translateY(-2px); }
+
+    100% { transform: translateY(0); }
+}
+
+@keyframes send-fly {
+
+    0%   { transform: translateX(0); opacity: 1; }
+
+    45%  { transform: translateX(16px); opacity: 0; }
+
+    46%  { transform: translateX(-16px); opacity: 0; }
+
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+
+/* =========================================================
+   Hover: colour / shadow only (any device that can hover)
+========================================================= */
+
+@media (hover: hover) {
+
+    .btn-light:hover {
+
+        background: #f1fafa;
+
+        color: var(--teal);
+    }
+
+    .btn-primary:hover,
+    .nav-cta:hover,
+    .footer-cta:hover,
+    .send-btn:hover,
+    .round-arrow-btn:hover {
+
+        filter: brightness(1.07) saturate(1.05);
+    }
+
+    .nav-cta:hover,
+    .footer-cta:hover,
+    .send-btn:hover,
+    .round-arrow-btn:hover {
+
+        box-shadow: 0 10px 22px rgba(30, 157, 160, .38);
+    }
+
+    .projects-link:hover,
+    .projects-link:focus-visible {
+
+        background-size: 100% 2px;
+    }
+
+    .footer-grid > div:not(.footer-brand) > a:not(.footer-cta):hover {
+
+        color: #48cfcb;
+    }
+
+    .socials a:hover {
+
+        background: var(--teal);
+
+        color: #fff;
+
+        box-shadow: 0 8px 18px rgba(30, 157, 160, .4);
+    }
+
+    .project-card:hover {
+
+        border-color: rgba(30, 157, 160, .55);
+
+        box-shadow:
+            0 20px 38px rgba(30, 157, 160, .22),
+            0 4px 10px rgba(0, 0, 0, .1);
+    }
+
+    .project-card:hover::after {
+
+        opacity: 1;
+    }
+
+    .project-card:hover .project-info h3 {
+
+        color: var(--teal);
+    }
+
+    .project-card:hover .project-image::after {
+
+        opacity: 1;
+    }
+
+    .project-card:hover .tags span {
+
+        background: #e1f3f3;
+
+        color: #1b7f81;
+    }
+
+    .project-card:hover .project-info > a::before {
+
+        transform: scale(1);
+    }
+}
+
+.nav a:focus-visible:not(.nav-cta)::after {
+
+    transform: scaleX(1);
+}
+
+
+/* =========================================================
+   Movement: lift, slide, sweep, press
+   Only for visitors who have NOT asked for reduced motion
+========================================================= */
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+
+    .btn:hover {
+
+        transform: translate(-2px, -4px);
+
+        box-shadow: 13px 16px 9px rgba(0, 0, 0, .16);
+    }
+
+    .nav-cta:hover,
+    .footer-cta:hover,
+    .send-btn:hover,
+    .round-arrow-btn:hover {
+
+        transform: translateY(-3px);
+    }
+
+    /* sweep */
+    .btn:hover::after,
+    .nav-cta:hover::after,
+    .footer-cta:hover::after,
+    .send-btn:hover::after,
+    .round-arrow-btn:hover::after {
+
+        opacity: 1;
+
+        animation: sweep .8s var(--ease);
+    }
+
+    /* icons and arrows inside buttons */
+    .btn-primary:hover .icon {
+
+        animation: icon-drop .6s var(--ease);
+    }
+
+    .btn-light:hover .icon {
+
+        transform: rotate(-14deg) scale(1.2);
+    }
+
+    .nav-cta:hover span {
+
+        transform: translateX(5px);
+    }
+
+    .round-arrow-btn:hover b {
+
+        transform: rotate(-45deg) scale(1.12);
+    }
+
+    .send-btn:hover .send-arrow {
+
+        animation: send-fly .7s var(--ease);
+    }
+
+    /* "Get to Know My Projects" arrow */
+    .projects-link:hover span,
+    .projects-link:focus-visible span {
+
+        transform: translateX(10px);
+    }
+
+    /* nav underline */
+    .nav a:not(.nav-cta):hover::after {
+
+        transform: scaleX(1);
+    }
+
+    /* footer dash */
+    .footer-grid > div:not(.footer-brand) > a:not(.footer-cta):hover::before {
+
+        width: 12px;
+
+        margin-right: 8px;
+    }
+
+    .socials a:hover {
+
+        transform: translateY(-4px) rotate(8deg);
+    }
+
+    .contact-info li > a:hover .icon {
+
+        transform: scale(1.25) rotate(-8deg);
+    }
+
+    .brand:hover .brand-logo {
+
+        transform: scale(1.05);
+    }
+
+    /* project card */
+    .project-card:hover {
+
+        transform: translateY(-10px);
+    }
+
+    .project-card:hover .project-image > span {
+
+        transform: scale(1.14);
+    }
+
+    .project-card:hover .project-image > img {
+
+        transform: scale(1.08);
+    }
+
+    .project-card:hover .project-image::before {
+
+        opacity: 1;
+
+        animation: sweep .95s var(--ease);
+    }
+
+    .project-card:hover .project-image::after {
+
+        transform: translate(-50%, 0);
+    }
+
+    .project-card:hover .project-info h3 {
+
+        transform: translateX(4px);
+    }
+
+    .project-card:hover .tags span {
+
+        transform: translateY(-3px);
+    }
+
+    .project-card:hover .tags span:nth-child(2) { transition-delay: .05s; }
+    .project-card:hover .tags span:nth-child(3) { transition-delay: .10s; }
+    .project-card:hover .tags span:nth-child(4) { transition-delay: .15s; }
+    .project-card:hover .tags span:nth-child(5) { transition-delay: .20s; }
+
+    .project-card:hover .project-info > a .icon {
+
+        transform: translate(3px, -3px) scale(1.15);
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+    /* PRESS FEEDBACK — deliberately placed AFTER the hover rules so that
+       pressing wins over hovering (same specificity, later rule wins).
+       Works for mouse, touch and pen. The buttons have a
+       hard offset shadow, so pressing moves them *into* their own shadow */
+
+    .btn:active {
+
+        transform: translate(4px, 5px);
+
+        box-shadow: 3px 3px 2px rgba(0, 0, 0, .2);
+
+        transition-duration: .08s;
+    }
+
+    .nav-cta:active,
+    .footer-cta:active,
+    .send-btn:active,
+    .round-arrow-btn:active {
+
+        transform: translateY(1px) scale(.97);
+
+        transition-duration: .08s;
+    }
+
+    .socials a:active {
+
+        transform: scale(.9);
+    }
+
+    .project-card:active {
+
+        transform: scale(.985);
+    }
+
+    .contact-form input:not([type="checkbox"]):focus,
+    .contact-form textarea:focus {
+
+        transform: translateY(-2px);
+    }
+
+    .projects-link:active span {
+
+        transform: translateX(14px) scale(1.1);
+    }
+}
+
+/* The nav button also matches the older, more specific `.nav a` rules, so it
+   needs selectors of equal weight to win */
+
+.nav a.nav-cta {
+
+    transition:
+        transform .3s var(--ease),
+        box-shadow .3s var(--ease),
+        filter .3s ease;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+
+    .nav a.nav-cta:hover {
+
+        transform: translateY(-3px);
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+    .nav a.nav-cta:active {
+
+        transform: translateY(1px) scale(.97);
+
+        transition-duration: .08s;
+    }
+}
+
+
+/* Keyboard users get the same card highlight */
+
+.project-card:focus-within {
+
+    border-color: rgba(30, 157, 160, .55);
+
+    box-shadow:
+        0 20px 38px rgba(30, 157, 160, .22),
+        0 4px 10px rgba(0, 0, 0, .1);
+}
+
+
+/* Nav underline makes no sense in the stacked mobile menu */
+
+@media (max-width: 768px) {
+
+    .nav a:not(.nav-cta)::after {
+
+        display: none;
+    }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+    .ripple,
+    .btn::after,
+    .nav-cta::after,
+    .footer-cta::after,
+    .send-btn::after,
+    .round-arrow-btn::after,
+    .project-image::before {
+
+        display: none;
     }
 }
 
