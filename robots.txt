@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# TODO: replace YOUR-DOMAIN.co.za with the real domain
+Sitemap: https://YOUR-DOMAIN.co.za/sitemap.xml
