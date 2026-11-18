@@ -1263,6 +1263,10 @@ h2 {
     color: #fff;
     font-size: 12.5px;
     font-weight: 200;
+    margin: 8px 0;
+}
+
+.footer-grid > div:not(.footer-brand) > a:not(.footer-cta) {
     margin: 5px 0;
     padding: 3px 0;
 }
@@ -1284,14 +1288,17 @@ h2 {
     font-size: 18px;
 }
 
-.footer-cta {
-    display: inline-block !important;
-    margin-top: 8px !important;
-    background: var(--teal);
-    color: #fff !important;
-    padding:
-        9px 27px;
+/* Footer "Contact Me" button: one definition for every screen size, identical to
+   the phone version. The selector is as specific as the generic footer-link rule
+   above it, so the two never fight (no !important needed). */
+.footer-grid > div:not(.footer-brand) > a.footer-cta {
+    display: inline-block;
+    margin: 8px 0 0;
+    padding: 12px 27px;
     border-radius: 7px;
+    background: var(--teal);
+    color: #fff;
+    font-size: 14px;
 }
 
 .copyright {
@@ -1650,7 +1657,7 @@ button {
         margin-right .3s var(--ease);
 }
 
-.footer-grid > div:not(.footer-brand) > a {
+.footer-grid > div:not(.footer-brand) > a:not(.footer-cta) {
     transition: color .25s ease;
 }
 
@@ -2779,14 +2786,10 @@ main:focus {
         gap: 28px;
     }
 
-    .footer-grid > div:not(.footer-brand) > a {
+    .footer-grid > div:not(.footer-brand) > a:not(.footer-cta) {
         font-size: 14px;
         margin: 0;
         padding: 12px 0;
-    }
-
-    .footer-cta {
-        padding: 12px 27px !important;
     }
 
     .socials a {
